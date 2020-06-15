@@ -133,6 +133,18 @@ main {
 
 }
 
+.error-div {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #FF1A1A;
+  margin-top: 5px;
+}
+
+.error-div p {
+  margin: 0;
+  padding: 8px;
+}
+
 .profile {
   height: 25%;
   width: 70%;
