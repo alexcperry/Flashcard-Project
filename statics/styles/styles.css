@@ -1,0 +1,217 @@
+body {
+  background-image: url("../img/background.png");
+}
+
+header {
+  height: 100px;
+  width: 80%;
+  margin: 0 auto;
+  padding: 0 5%;
+  position: relative;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #F0EAA6;
+  border: 5px solid black;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+}
+
+main {
+  height: calc(100vh - 100px);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.title {
+  margin: 0 auto;
+  font-size: 20px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.title span {
+  margin: 3px 0;
+}
+
+.profile-link,
+.cards-link {
+  cursor: pointer;
+}
+
+.profile-icon,
+.card-icon {
+  display: none;
+  height: 50px;
+  width: 50px;
+  position: absolute;
+  top: 25%;
+  bottom: 30%;
+  right: 20px;
+}
+
+.card-div {
+  height: 45%;
+  width: 55%;
+  background-color: #F0EAA6;
+  margin: 15% 0;
+  border: 5px solid black;
+  border-radius: 10px;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  padding: 30px;
+}
+
+.reverse-flashcard-btn {
+  height: 20px;
+  width: 20px;
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  cursor: pointer;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background-color: #F0EAA6;
+}
+
+.reverse-flashcard-icon {
+  height: 20px;
+  width: 20px;
+}
+
+.question {
+  margin: 15% 0 0;
+  text-align: center;
+}
+
+.hint {
+  margin: 15% 0 0;
+  font-size: 20px;
+  text-align: center;
+}
+
+.intro {
+  height: 15%;
+  width: 55%;
+  background-color: #F0EAA6;
+  margin: 15% 0;
+  border: 5px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.intro form {
+  height: calc(100% - 30px);
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+}
+
+.intro label {
+  display: block;
+  font-size: 20px; 
+  font-weight: bold;
+  text-align: center;
+}
+
+.intro input{
+  margin: 10px 0 12px;
+  padding: 5px;
+  border-radius: 5px;
+
+}
+
+.error-div {
+  border: 2px solid black;
+  border-radius: 5px;
+  background-color: #FF1A1A;
+  margin-top: 5px;
+}
+
+.error-div p {
+  margin: 0;
+  padding: 8px;
+}
+
+.profile {
+  height: 25%;
+  width: 70%;
+  background-color: #F0EAA6;
+  margin: 15% 0;
+  border: 5px solid black;
+  border-radius: 10px;
+  padding: 15px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+}
+
+.profile h2 {
+  text-align: center;
+  margin-top: 10px;
+}
+
+.profile p {
+  margin-top: 0;
+  margin-left: 10px;
+}
+
+@media (min-width: 560px) {
+
+  .card-div {
+    margin: 10% 0;
+  }
+
+  .title {
+    display: block;
+    font-size: 20px;
+  }
+
+  .profile-icon,
+  .card-icon {
+    display: block;
+  }
+
+  .hint {
+    margin: 10% 0 0;
+  }
+}
+
+@media (min-width: 768px) {
+
+  .title {
+    font-size: 30px;
+  }
+
+  .question {
+    margin: 8% 0 0;
+  }
+
+  .hint {
+    margin: 8% 0 0;
+  }
+
+  .intro label {
+    font-size: 25px;
+  }
+
+  .profile {
+    margin: 5% 0 0;
+  }
+
+  .profile p {
+    margin-left: 30px;
+  }
+}
