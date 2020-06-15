@@ -8,10 +8,8 @@ app.get('/', (req, res) => {
   res.send("<h2>Your first Express App!!! Congratulations!!</h2>");
 })
 
-app.get('/hello', (req, res) => {
-  res.render('hello');
-})
+const PORT = process.env.PORT || 3000;
 
-app.listen(3000, () => {
+app.listen(PORT, () => {
   console.log('The application is listening on localhost:3000!');
 })
