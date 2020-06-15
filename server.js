@@ -17,7 +17,8 @@ app.set('view engine', 'pug');
 
 // Routing
 app.get('/', (req, res) => {
-  res.render('');
+  if (!req.cookies.userName) res.render('');
+  else res.redirect('/profile');
 })
 
 app.post('/cards', (req, res) => {
@@ -28,13 +29,13 @@ app.post('/cards', (req, res) => {
 
 app.get('/cards', (req, res) => {
   if (req.cookies.userName) res.render('cards', { cards: true });
-  else res.render('');
+  else res.redirect('/');
 })
 
 app.get('/profile', (req, res) => {
   const userName = req.cookies.userName;
   if (userName) res.render('profile', { profile: true, userName });
-  else res.render('');
+  else res.redirect('/');
 })
 
 const PORT = process.env.PORT || 3000;
@@ -42,3 +43,7 @@ const PORT = process.env.PORT || 3000;
 app.listen(PORT, () => {
   console.log(`The application is listening on localhost:${PORT}!`);
 })
+
+/* TODO:
+1. Redirect instead of just rendering a different HTML page
+*/

@@ -2,8 +2,8 @@ extends layout.pug
 
 block content
   .card-div
-    form(action="get")
-      button.reverse-flashcard-btn(type="submit")
+    form(action="cards?side=answer" method="get")
+      button.reverse-flashcard-btn(type="submit", title="Reverse Flashcard")
         img.reverse-flashcard-icon(src="img/reverse-flashcard.png")
     h2.question Example Question: What is your name? If this question gets really long what happens?
     i.hint Example Hint: You should really know this one.
