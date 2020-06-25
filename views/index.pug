@@ -1,8 +1,0 @@
-extends layout.pug
-
-block content
-  .intro
-    form.intro-form(action="/cards", method="post")
-      label(for = "name-input") What is your name?
-      input#name-input(type = "text", name="user-name")
-      button.submit-btn(type = "submit") Enter
