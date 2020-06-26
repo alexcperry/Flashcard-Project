@@ -3,6 +3,8 @@ const cors = require('cors');
 const mongoose = require('mongoose');
 require('dotenv').config();
 
+let Flashcard = require('./models/flashcard.model');
+
 
 // Make Server
 const app = express();
@@ -23,6 +25,23 @@ connection.once('open', () => {
 
 
 // Routing
+
+app.get('/test', (req, res) => {
+  Flashcard.find()
+    .then(cardList => res.json(cardList))
+    .catch(err => res.status(400).json(`Error ${err}`));
+})
+
+app.post('/add-flashcard', (req, res) => {
+  const newFlashcard = new Flashcard({
+    question: req.body.question,
+    answer: req.body.answer,
+    cardset: req.body.cardset
+  })
+
+  newFlashcard.save()
+    .catch(err => res.status(400).json(`Error ${err}`));
+})
 
 
 // Listen on PORT
