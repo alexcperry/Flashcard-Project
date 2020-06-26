@@ -4,6 +4,7 @@ const mongoose = require('mongoose');
 require('dotenv').config();
 
 let Flashcard = require('./models/flashcard.model');
+let CardSet = require('./models/cardset.model');
 
 
 // Make Server
@@ -26,21 +27,88 @@ connection.once('open', () => {
 
 // Routing
 
-app.get('/test', (req, res) => {
-  Flashcard.find()
-    .then(cardList => res.json(cardList))
-    .catch(err => res.status(400).json(`Error ${err}`));
-})
+//Card Routes
+app.post('/set/:setId/add-flashcard', (req, res) => { //Create
 
-app.post('/add-flashcard', (req, res) => {
+  let flashcardId = '';
+
+  //Create new flashcard
   const newFlashcard = new Flashcard({
     question: req.body.question,
     answer: req.body.answer,
-    cardset: req.body.cardset
+    hint: req.body.hint
   })
 
+  //Save new flashcard to database and get ID
   newFlashcard.save()
+    .then(card => {
+      flashcardId = card._id;
+      return CardSet.findOne({ _id: req.params.setId }, (err, set) => {
+      });
+    }) //Add ID to list of cards belonging to that cardset
+    .then(cardset => {
+      cardset.cards.push(flashcardId);
+      cardset.save();
+    }) //Return the updated cardset
+    .then(cardset => res.json(cardset))
     .catch(err => res.status(400).json(`Error ${err}`));
+})
+
+
+app.get('/card/:cardId', (req, res) => { //Read
+  Flashcard.findById(req.params.cardId)
+    .then(card => res.json(card))
+    .catch(err => res.status(400).json(`Error ${err}`));
+})
+
+
+app.get('/set/:setId/delete-flashcard/:cardId', (req, res) => { //Delete
+  CardSet.findOne({ _id: req.params.setId })
+    .then(cardset => {
+      const index = cardset.cards.indexOf(req.params.cardId);
+      if (index > -1) cardset.cards.splice(index, 1);
+      cardset.save();
+    })
+    .then(() => {
+      console.log(req.params.cardId);
+      Flashcard.findByIdAndDelete(req.params.cardId, () => { })
+    })
+    .then(res.send("Successfully deleted"))
+    .catch(err => res.status(400).json(`Error ${err}`));
+
+})
+
+
+//Set Routes
+
+app.get('/set-collection', (req, res) => { //Read All
+  CardSet.find({}, () => { })
+    .then(set => res.json(set))
+    .catch(err => res.status(400).json(`Error ${err}`));
+})
+
+
+app.get('/set/:setId', (req, res) => { //Read
+  CardSet.findById(req.params.setId)
+    .then(set => res.json(set))
+    .catch(err => res.status(400).json(`Error ${err}`));
+})
+
+
+app.post('/new-set', (req, res) => { //Create 
+  const newCardSet = new CardSet({
+    title: req.body.title,
+    cards: [],
+  })
+
+  newCardSet.save()
+    .then(set => res.json(set))
+    .catch(err => res.status(400).json(`Error ${err}`));
+})
+
+
+app.get('/delete-collection/:setId', (req, res) => { //TODO: Implement
+  res.send("TODO: Implement");
 })
 
 
