@@ -1,10 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import MenuOption from '../MenuOption';
 
 export class CardSetMenu extends Component {
   render() {
     return (
       <div className="set-menu">
-        <h1>Set Menu</h1>
+        <MenuOption />
+        <MenuOption />
+        <MenuOption />
+        <MenuOption />
       </div>
     )
   }
