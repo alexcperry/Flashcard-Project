@@ -16,27 +16,37 @@ class App extends React.Component {
     super(props);
 
     this.state = {
-      cardSets: [],
-      flashcards: [],
+      setDict: {},
     }
   }
 
   componentDidMount() {
-
     axios.get('http://localhost:3000/all-sets')
       .then(cardSets => {
-        this.setState({ cardSets: cardSets.data });
-        console.log('my sets', this.state.cardSets);
+
+        let setDict = {}
+        cardSets.data.map(set => {
+          setDict[set._id] = set;
+        });
+
+        this.setState({ setDict });
+
       })
       .catch(err => console.log(`Error ${err}`));
-
-    axios.get('http://localhost:3000/all-cards')
-      .then(flashcards => {
-        this.setState({ flashcards: flashcards.data });
-      })
-      .catch(err => console.log(`Error ${err}`));
-
   }
+
+
+  createSet = setTitle => {
+    console.log('creating set')
+    axios.post('http://localhost:3000/create-set', { title: setTitle })
+      .then(res => {
+        console.log('set made');
+        this.state.setDict[res.data._id] = res.data;
+        console.log(this.state.setDict);
+      })
+      .catch(err => console.log(`Error ${err}`));
+  }
+
 
   render() {
     return (
@@ -45,10 +55,10 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route path="/" exact component={MainMenu} />
-            <Route path="/new-set" component={NewSetForm} />
+            <Route path="/new-set" component={() => <NewSetForm createSet={this.createSet} />} />
             {/* This is not the best way to render a component: https://ui.dev/react-router-v4-pass-props-to-components/ */}
-            <Route path="/set-menu" component={() => <CardSetMenu sets={this.state.cardSets} />} />
-            <Route path="/set" component={Set} />
+            <Route path="/set-menu" component={() => <CardSetMenu setDict={this.state.setDict} />} />
+            <Route path="/sets/:id" component={props => <Set {...props} setDict={this.state.setDict} />} />
             <Route path="/set-collection" component={SetCollection} />
           </Switch>
         </div>
@@ -60,7 +70,6 @@ class App extends React.Component {
 export default App;
 
 /* TODOS:
-1. Refactor db schema, include entire cards inside sets
-2. Mysterious bug loading sets? See if you can recreate it
-3. Make new set functionality
+1. Mysterious bug loading sets? See if you can recreate it
+2. Make new set functionality
 */

@@ -20,7 +20,8 @@ const menuOptionStyle = {
   border: '2px solid black',
   borderRadius: '10px',
   width: '400px',
-  height: '250px'
+  height: '250px',
+  marginTop: '30px',
 }
 
 export default MenuOption

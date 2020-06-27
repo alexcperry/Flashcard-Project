@@ -1,13 +1,28 @@
 import React, { Component } from 'react'
 
 export class NewSetForm extends Component {
+
+  state = {
+    title: ''
+  }
+
+  onChange = e => {
+    this.setState({ title: e.target.value })
+  }
+
+
+  onSubmit = e => {
+    e.preventDefault();
+    this.props.createSet(this.state.title);
+  }
+
   render() {
     return (
-      <form className="new-set-form" style={newFormStyle}>
+      <form className="new-set-form" style={newFormStyle} onSubmit={this.onSubmit}>
         <h1 style={{ textAlign: 'center', margin: '2px 0 0' }}>New Flashcard Set</h1>
-        <input type="text" placeholder="Set Title..." style={inputStyle}></input>
+        <input type="text" placeholder="Set Title..." style={inputStyle} onChange={this.onChange}></input>
         <input type="submit" style={submitStyle}></input>
-      </form>
+      </form >
     )
   }
 }
