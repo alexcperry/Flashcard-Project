@@ -61,6 +61,12 @@ app.get('/card/:cardId', (req, res) => { //Read
     .catch(err => res.status(400).json(`Error ${err}`));
 })
 
+app.get('/all-cards', (req, res) => {
+  Flashcard.find({}, () => { })
+    .then(cards => res.json(cards))
+    .catch(err => res.status(400).json(`Error ${err}`));
+})
+
 
 app.get('/set/:setId/delete-flashcard/:cardId', (req, res) => { //Delete
   CardSet.findOne({ _id: req.params.setId })
@@ -81,7 +87,7 @@ app.get('/set/:setId/delete-flashcard/:cardId', (req, res) => { //Delete
 
 //Set Routes
 
-app.get('/set-collection', (req, res) => { //Read All
+app.get('/all-sets', (req, res) => { //Read All
   CardSet.find({}, () => { })
     .then(set => res.json(set))
     .catch(err => res.status(400).json(`Error ${err}`));

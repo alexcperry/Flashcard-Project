@@ -5,8 +5,8 @@ export class MainMenu extends Component {
   render() {
     return (
       <div className="main-menu" style={mainMenuStyle}>
-        <MenuOption option="Flashcard Sets" />
-        <MenuOption option="Make a Set" />
+        <MenuOption option="Flashcard Sets" dest="/set-menu" />
+        <MenuOption option="Make a Set" dest="/new-set" />
       </div>
     )
   }

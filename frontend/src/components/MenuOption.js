@@ -1,11 +1,14 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class MenuOption extends Component {
   render() {
     return (
       <div className="menu-option" style={menuOptionStyle}>
-        <h1>{this.props.option}</h1>
-      </div>
+        <Link to={this.props.dest}>
+          <h1>{this.props.option}</h1>
+        </Link>
+      </div >
     )
   }
 }

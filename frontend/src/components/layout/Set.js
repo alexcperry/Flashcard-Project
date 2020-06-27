@@ -5,8 +5,8 @@ export class Set extends Component {
   render() {
     return (
       <div className="set-page" style={setStyle}>
-        <MenuOption option="Study" />
-        <MenuOption option="Add Cards" />
+        <MenuOption option="Study" dest="/" />
+        <MenuOption option="Add Cards" dest="/" />
       </div>
     )
   }
