@@ -6,7 +6,7 @@ export class Header extends Component {
     return (
       <header>
         <Link to="/">
-          <h1>Alex's Flashcard Collection</h1>
+          <h1 style={{ color: 'white' }}>Alex's Flashcard Collection</h1>
         </Link>
       </header>
     )

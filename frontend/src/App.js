@@ -39,7 +39,6 @@ class App extends React.Component {
   }
 
   render() {
-    console.log('sets in app: ', this.state.cardSets);
     return (
       <Router>
         <div className="App">
@@ -59,3 +58,9 @@ class App extends React.Component {
 }
 
 export default App;
+
+/* TODOS:
+1. Refactor db schema, include entire cards inside sets
+2. Mysterious bug loading sets? See if you can recreate it
+3. Make new set functionality
+*/
