@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from './components/layout/Header';
@@ -38,12 +38,21 @@ class App extends React.Component {
 
 
   createSet = setTitle => {
-    console.log('creating set')
     axios.post('http://localhost:3000/create-set', { title: setTitle })
       .then(res => {
-        console.log('set made');
         this.state.setDict[res.data._id] = res.data;
-        console.log(this.state.setDict);
+      })
+      .catch(err => console.log(`Error ${err}`));
+  }
+
+
+  createCard = (setId, question, answer, hint) => {
+
+    const newCard = { question, answer, hint }
+
+    axios.post(`http://localhost:3000/sets/${setId}/add-flashcard`, newCard)
+      .then(cardset => {
+        console.dir(cardset);
       })
       .catch(err => console.log(`Error ${err}`));
   }
@@ -60,7 +69,7 @@ class App extends React.Component {
             {/* This is not the best way to render a component: https://ui.dev/react-router-v4-pass-props-to-components/ */}
             <Route path="/set-menu" exact component={() => <CardSetMenu setDict={this.state.setDict} />} />
             <Route path="/sets/:id" exact component={props => <Set {...props} setDict={this.state.setDict} />} />
-            <Route path="/sets/:id/add-cards" component={AddCardPage} />
+            <Route path="/sets/:id/add-cards" component={props => <AddCardPage {...props} createCard={this.createCard} />} />
             <Route path="/set-collection" component={SetCollection} />
           </Switch>
         </div>

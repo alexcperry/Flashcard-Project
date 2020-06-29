@@ -36,15 +36,17 @@ app.post('/sets/:setId/add-flashcard', (req, res) => { //Create WORKING
     hint: req.body.hint
   }
 
+  console.dir(newFlashcard)
+
   //Save new flashcard to database and get ID
   CardSet.findOne({ _id: req.params.setId }, (err, set) => {
   })
     //Add ID to list of cards belonging to that cardset
     .then(cardset => {
+      console.log('check 1')
       cardset.cards.push(newFlashcard);
       cardset.save();
     }) //Return the updated cardset
-    .then(cardset => res.json(cardset))
     .catch(err => res.status(400).json(`Error ${err}`));
 })
 
