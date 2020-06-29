@@ -1,4 +1,4 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
 
 export class NewSetForm extends Component {
 
@@ -12,13 +12,12 @@ export class NewSetForm extends Component {
 
 
   onSubmit = e => {
-    e.preventDefault();
     this.props.createSet(this.state.title);
   }
 
   render() {
     return (
-      <form className="new-set-form" style={newFormStyle} onSubmit={this.onSubmit}>
+      <form className="new-set-form" action="/set-menu" style={newFormStyle} onSubmit={this.onSubmit}>
         <h1 style={{ textAlign: 'center', margin: '2px 0 0' }}>New Flashcard Set</h1>
         <input type="text" placeholder="Set Title..." style={inputStyle} onChange={this.onChange}></input>
         <input type="submit" style={submitStyle}></input>

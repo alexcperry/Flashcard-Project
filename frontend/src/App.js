@@ -9,6 +9,7 @@ import NewSetForm from './components/layout/NewSetForm';
 import CardSetMenu from './components/layout/CardSetMenu';
 import Set from './components/layout/Set';
 import SetCollection from './components/layout/SetCollection';
+import AddCardPage from './components/layout/AddCardPage';
 
 class App extends React.Component {
 
@@ -55,10 +56,11 @@ class App extends React.Component {
           <Header />
           <Switch>
             <Route path="/" exact component={MainMenu} />
-            <Route path="/new-set" component={() => <NewSetForm createSet={this.createSet} />} />
+            <Route path="/new-set" exact component={() => <NewSetForm createSet={this.createSet} />} />
             {/* This is not the best way to render a component: https://ui.dev/react-router-v4-pass-props-to-components/ */}
-            <Route path="/set-menu" component={() => <CardSetMenu setDict={this.state.setDict} />} />
-            <Route path="/sets/:id" component={props => <Set {...props} setDict={this.state.setDict} />} />
+            <Route path="/set-menu" exact component={() => <CardSetMenu setDict={this.state.setDict} />} />
+            <Route path="/sets/:id" exact component={props => <Set {...props} setDict={this.state.setDict} />} />
+            <Route path="/sets/:id/add-cards" component={AddCardPage} />
             <Route path="/set-collection" component={SetCollection} />
           </Switch>
         </div>
@@ -71,5 +73,6 @@ export default App;
 
 /* TODOS:
 1. Mysterious bug loading sets? See if you can recreate it
-2. Make new set functionality
+2. Add card functionality
+3. 404 page
 */

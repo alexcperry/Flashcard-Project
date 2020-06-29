@@ -6,7 +6,7 @@ export class CardSetMenu extends Component {
     return (
       <div className="set-menu" style={setMenuStyle}>
         {(this.props.setDict) &&
-          getSetItems(this.props.setDict).map(set => {
+          getSetItems(this.props.setDict).slice(0).reverse().map(set => {
             return <MenuOption dest={`/sets/${set._id}`} option={set.title} key={set._id} />
           })
         }

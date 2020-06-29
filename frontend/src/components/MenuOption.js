@@ -6,7 +6,7 @@ export class MenuOption extends Component {
     return (
       <div className="menu-option" style={menuOptionStyle}>
         <Link to={this.props.dest}>
-          <h1>{this.props.option}</h1>
+          <h1 style={{ textAlign: 'center' }}>{this.props.option}</h1>
         </Link>
       </div >
     )
