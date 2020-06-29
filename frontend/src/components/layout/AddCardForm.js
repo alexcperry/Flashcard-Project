@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 
-export class AddCardItem extends Component {
+export class AddCardForm extends Component {
 
   state = {
     question: '',
@@ -69,4 +69,4 @@ const submitStyle = {
   fontWeight: 'bold',
 }
 
-export default AddCardItem
+export default AddCardForm

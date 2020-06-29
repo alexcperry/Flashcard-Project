@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import AddCardItem from './AddCardItem';
+import AddCardForm from './AddCardForm';
 import CreatedCardDiv from './CreatedCardDiv';
 
 export class AddCardPage extends Component {
@@ -23,7 +23,7 @@ export class AddCardPage extends Component {
       <div className="add-card-page" style={addCardPageStyle}>
         <h1 style={{ "marginTop": "30px" }}>Add cards to me</h1>
         {cardDivs}
-        <AddCardItem {...this.props} createCard={this.props.createCard} addCreatedDiv={this.addCreateDiv} />
+        <AddCardForm {...this.props} createCard={this.props.createCard} addCreatedDiv={this.addCreateDiv} />
       </div>
     )
   }
