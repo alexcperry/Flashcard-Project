@@ -9,6 +9,7 @@ export class Quiz extends Component {
     cardSet: {},
     qaPairs: [],
     qside: true,
+    showHint: false,
   }
 
 
@@ -21,7 +22,9 @@ export class Quiz extends Component {
     for (let i = 0; i < numCards; i++) {
       const question = set.cards[indices[i]].question;
       const answer = set.cards[indices[i]].answer;
-      qas.push({ question, answer });
+      const hint = set.cards[indices[i]].hint || "";
+      console.log('hint is a', typeof hint);
+      qas.push({ question, answer, hint });
     }
 
     this.setState({ numCards, cardSet: set, qaPairs: qas, currIndex: 0, qside: true });
@@ -47,16 +50,24 @@ export class Quiz extends Component {
     this.setState({ qside: !this.state.qside });
   }
 
+  toggleHint = () => {
+    this.setState({ showHint: !this.state.showHint })
+  }
+
 
   render() {
 
     const qaPair = this.state.qaPairs[this.state.currIndex];
-    let question = "whoops";
-    let answer = "sie daisy";
+    let question = "";
+    let answer = "";
+    let hint = "";
     if (qaPair) {
       question = qaPair.question;
       answer = qaPair.answer;
+      hint = qaPair.hint;
     }
+
+    const hintDisplay = (hint !== "" && this.state.qside) ? 'block' : 'none'
 
     return (
       < div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -70,6 +81,11 @@ export class Quiz extends Component {
             { display: 'none', textAlign: 'center' }}>{question}</h1>
           <h1 style={!this.state.qside ? { textAlign: 'center' } :
             { display: 'none', textAlign: 'center' }}>{answer}</h1>
+          <div className="hint"
+            style={{ ...hintStyle, display: hintDisplay }}
+            onClick={this.toggleHint}>
+            <h3>{!this.state.showHint ? "Click to show hint" : hint}</h3>
+          </div>
           <button style={scrollBtnRightStyle} onClick={this.changeCardRight}>{">"}</button>
         </div>
       </div >
@@ -79,6 +95,7 @@ export class Quiz extends Component {
 
 const quizStyle = {
   display: 'flex',
+  flexDirection: 'column',
   justifyContent: 'center',
   alignItems: 'center',
   width: '600px',
@@ -88,6 +105,16 @@ const quizStyle = {
   borderRadius: '8px',
   padding: '10px 20px',
   position: 'relative',
+}
+
+const hintStyle = {
+  minWidth: '185px',
+  background: '#ccc',
+  padding: '5px 10px',
+  borderRadius: '5px',
+  margin: '10px',
+  cursor: 'pointer',
+  textAlign: 'center',
 }
 
 const scrollBtnLeftStyle = {
