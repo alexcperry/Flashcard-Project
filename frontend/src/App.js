@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, Redirect, } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from './components/layout/Header';
@@ -11,6 +11,7 @@ import Set from './components/layout/Set';
 import SetCards from './components/layout/SetCards';
 import AddCardPage from './components/layout/AddCardPage';
 import Quiz from './components/layout/Quiz';
+import ErrorPage from './components/layout/ErrorPage';
 
 class App extends React.Component {
 
@@ -85,6 +86,8 @@ class App extends React.Component {
             <Route path="/sets/:id/add-cards" component={props => <AddCardPage {...props} createCard={this.createCard} setDict={this.state.setDict} />} />
             <Route path="/sets/:id/all-cards" component={props => <SetCards {...props} parentDeleteCard={this.deleteCard} setDict={this.state.setDict} />} />
             <Route path="/sets/:id/quiz" component={props => <Quiz {...props} setDict={this.state.setDict} />} />
+            <Route path="/404" component={ErrorPage} />
+            <Redirect from="/" to="/404" />
           </Switch>
         </div>
       </Router >
