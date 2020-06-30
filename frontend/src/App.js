@@ -37,7 +37,6 @@ class App extends React.Component {
       .catch(err => console.log(`Error ${err}`));
   }
 
-
   createSet = setTitle => {
     axios.post('http://localhost:3000/create-set', { title: setTitle })
       .then(res => {
@@ -46,9 +45,17 @@ class App extends React.Component {
       .catch(err => console.log(`Error ${err}`));
   }
 
+  deleteSet = setId => {
+    axios.get(`http://localhost:3000/sets/${setId}/delete-set`)
+      .then(res => {
+        let newSetDict = this.state.setDict;
+        delete newSetDict[setId];
+        this.setState({ setDict: newSetDict });
+      })
+      .catch(err => console.log(`Error ${err}`));
+  }
 
   createCard = (setId, question, answer, hint) => {
-
     const newCard = { question, answer, hint }
 
     axios.post(`http://localhost:3000/sets/${setId}/add-flashcard`, newCard)
@@ -59,6 +66,9 @@ class App extends React.Component {
       .catch(err => console.log(`Error ${err}`));
   }
 
+  deleteCard = (setId, questionIndex) => {
+    console.log('set', setId, 'questionIndex', questionIndex);
+  }
 
   render() {
     return (
@@ -70,9 +80,9 @@ class App extends React.Component {
             <Route path="/new-set" exact component={() => <NewSetForm createSet={this.createSet} />} />
             {/* This is not the best way to render a component: https://ui.dev/react-router-v4-pass-props-to-components/ */}
             <Route path="/set-menu" exact component={() => <CardSetMenu setDict={this.state.setDict} />} />
-            <Route path="/sets/:id" exact component={props => <Set {...props} setDict={this.state.setDict} />} />
-            <Route path="/sets/:id/add-cards" component={props => <AddCardPage {...props} createCard={this.createCard} />} />
-            <Route path="/sets/:id/all-cards" component={props => <SetCards {...props} setDict={this.state.setDict} />} />
+            <Route path="/sets/:id" exact component={props => <Set {...props} setDict={this.state.setDict} parentDeleteSet={this.deleteSet} />} />
+            <Route path="/sets/:id/add-cards" component={props => <AddCardPage {...props} createCard={this.createCard} setDict={this.state.setDict} />} />
+            <Route path="/sets/:id/all-cards" component={props => <SetCards {...props} parentDeleteCard={this.deleteCard} setDict={this.state.setDict} />} />
             <Route path="/sets/:id/quiz" component={props => <Quiz {...props} setDict={this.state.setDict} />} />
           </Switch>
         </div>
@@ -88,3 +98,5 @@ export default App;
 2. Add card functionality
 3. 404 page
 */
+
+// It is currently deleting sets, but an error occurs when you do it

@@ -43,6 +43,10 @@ export class Quiz extends Component {
     });
   }
 
+  flipCard = () => {
+    this.setState({ qside: !this.state.qside });
+  }
+
 
   render() {
 
@@ -60,12 +64,13 @@ export class Quiz extends Component {
           <h1 style={{ marginTop: '30px' }}>{this.state.cardSet.title}</h1>
         </Link>
         <div className="quiz-div" style={quizStyle}>
-          <button style={scrollBtnStyle} onClick={this.changeCardLeft}>{"<"}</button>
+          <button className="reverse-btn" onClick={this.flipCard} style={{ right: '10px' }}>X</button>
+          <button style={scrollBtnLeftStyle} onClick={this.changeCardLeft}>{"<"}</button>
           <h1 style={this.state.qside ? { textAlign: 'center' } :
             { display: 'none', textAlign: 'center' }}>{question}</h1>
           <h1 style={!this.state.qside ? { textAlign: 'center' } :
             { display: 'none', textAlign: 'center' }}>{answer}</h1>
-          <button style={scrollBtnStyle} onClick={this.changeCardRight}>{">"}</button>
+          <button style={scrollBtnRightStyle} onClick={this.changeCardRight}>{">"}</button>
         </div>
       </div >
     )
@@ -74,7 +79,7 @@ export class Quiz extends Component {
 
 const quizStyle = {
   display: 'flex',
-  justifyContent: 'space-between',
+  justifyContent: 'center',
   alignItems: 'center',
   width: '600px',
   height: '400px',
@@ -82,28 +87,37 @@ const quizStyle = {
   border: '2px solid black',
   borderRadius: '8px',
   padding: '10px 20px',
+  position: 'relative',
 }
 
-const scrollBtnStyle = {
+const scrollBtnLeftStyle = {
   height: '30px',
   width: '30px',
   borderRadius: '50%',
   border: '2px solid black',
   alignSelf: 'flex-end',
-  marginBottom: '20px',
+  position: 'absolute',
+  bottom: '25px',
+  left: '25px',
+}
+
+const scrollBtnRightStyle = {
+  height: '30px',
+  width: '30px',
+  borderRadius: '50%',
+  border: '2px solid black',
+  alignSelf: 'flex-end',
+  position: 'absolute',
+  bottom: '25px',
+  right: '25px',
 }
 
 function shuffle(array) {
   var currentIndex = array.length, temporaryValue, randomIndex;
 
-  // While there remain elements to shuffle...
   while (0 !== currentIndex) {
-
-    // Pick a remaining element...
     randomIndex = Math.floor(Math.random() * currentIndex);
     currentIndex -= 1;
-
-    // And swap it with the current element.
     temporaryValue = array[currentIndex];
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;

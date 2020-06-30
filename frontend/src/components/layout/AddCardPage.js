@@ -19,9 +19,13 @@ export class AddCardPage extends Component {
       cardDivs.push(<CreatedCardDiv key={i} />)
     }
 
+    const setTitle = this.props.setDict[this.props.match.params.id].title
+
     return (
-      <div className="add-card-page" style={addCardPageStyle}>
-        <h1 style={{ "marginTop": "30px" }}>Add cards to me</h1>
+      <div className="add-card-page" style={addCardPageStyle} >
+        <h1 style={{ "marginTop": "30px" }}>Add cards to: {' '}
+          <span>{setTitle}</span>
+        </h1>
         {cardDivs}
         <AddCardForm {...this.props} createCard={this.props.createCard} addCreatedDiv={this.addCreateDiv} />
       </div>

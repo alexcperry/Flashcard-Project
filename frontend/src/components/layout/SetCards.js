@@ -1,6 +1,6 @@
 import React, { Component, Fragment } from 'react';
 import { Link } from 'react-router-dom';
-import MenuOption from '../MenuOption';
+import CollectionCard from '../CollectionCard';
 
 export class SetCards extends Component {
 
@@ -13,6 +13,10 @@ export class SetCards extends Component {
     this.setState({ cardSet: this.props.setDict[this.props.match.params.id] })
   }
 
+  deleteCard = itemId => {
+    this.props.parentDeleteCard(this.props.match.params.id, itemId)
+  }
+
 
   render() {
     return (
@@ -23,7 +27,7 @@ export class SetCards extends Component {
         <div className="set-cards" style={cardCollectionStyle}>
           {(this.state.cardSet.cards) &&
             (this.state.cardSet.cards).slice(0).reverse().map(card => {
-              return <MenuOption option={card.question} key={card._id} />
+              return <CollectionCard card={card} key={card._id} parentDeleteCard={this.deleteCard} />
             })
           }
         </div>
@@ -38,7 +42,6 @@ const cardCollectionStyle = {
   display: 'flex',
   justifyContent: 'space-evenly',
   flexWrap: 'wrap',
-
 }
 
 export default SetCards
