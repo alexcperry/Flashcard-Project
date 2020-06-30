@@ -26,12 +26,20 @@ export class Quiz extends Component {
     this.setState({ numCards, cardSet: set, qaPairs: qas, currIndex: 0, qside: true });
   }
 
+  changeCardLeft = () => {
+    const num = this.state.numCards;
+    this.setState({
+      currIndex: (this.state.currIndex + num + 1) % num,
+      qside: true,
+    })
+  }
+
   changeCardRight = () => {
-
-
-
-
-    this.setState({ currIndex: (this.state.currIndex + 1) % this.state.numCards });
+    const num = this.state.numCards;
+    this.setState({
+      currIndex: (this.state.currIndex + 1) % num,
+      qside: true,
+    });
   }
 
 
@@ -50,7 +58,7 @@ export class Quiz extends Component {
       < div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <h1 style={{ marginTop: '30px' }}>{this.state.cardSet.title}</h1>
         <div className="quiz-div" style={quizStyle}>
-          <button style={scrollBtnStyle} >{"<"}</button>
+          <button style={scrollBtnStyle} onClick={this.changeCardLeft}>{"<"}</button>
           <h1 style={this.state.qside ? { textAlign: 'center' } :
             { display: 'none', textAlign: 'center' }}>{question}</h1>
           <h1 style={!this.state.qside ? { textAlign: 'center' } :
