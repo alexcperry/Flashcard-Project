@@ -67,6 +67,7 @@ class App extends React.Component {
   }
 
   deleteCard = (setId, questionIndex) => {
+    // axios.get(`http://localhost:3000/sets/${setId}/delete-flashcard/${}`)
     console.log('set', setId, 'questionIndex', questionIndex);
   }
 
