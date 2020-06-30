@@ -58,16 +58,12 @@ export class Quiz extends Component {
   render() {
 
     const qaPair = this.state.qaPairs[this.state.currIndex];
-    let question = "";
-    let answer = "";
-    let hint = "";
-    if (qaPair) {
-      question = qaPair.question;
-      answer = qaPair.answer;
-      hint = qaPair.hint;
-    }
+    let question = qaPair ? qaPair.question : "";
+    let answer = qaPair ? qaPair.answer : "";
+    let hint = qaPair ? qaPair.hint : "";
 
-    const hintDisplay = (hint !== "" && this.state.qside) ? 'block' : 'none'
+    const scrollDisplay = this.state.numCards > 1 ? 'inline-block' : 'none';
+    const hintDisplay = (hint !== "" && this.state.qside) ? 'block' : 'none';
 
     return (
       < div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
@@ -76,7 +72,10 @@ export class Quiz extends Component {
         </Link>
         <div className="quiz-div" style={quizStyle}>
           <button className="reverse-btn" onClick={this.flipCard} style={{ right: '10px' }}>X</button>
-          <button style={scrollBtnLeftStyle} onClick={this.changeCardLeft}>{"<"}</button>
+          <button
+            style={{ ...scrollBtnLeftStyle, display: scrollDisplay }}
+            onClick={this.changeCardLeft}>{"<"}
+          </button>
           <h1 style={this.state.qside ? { textAlign: 'center' } :
             { display: 'none', textAlign: 'center' }}>{question}</h1>
           <h1 style={!this.state.qside ? { textAlign: 'center' } :
@@ -86,7 +85,10 @@ export class Quiz extends Component {
             onClick={this.toggleHint}>
             <h3>{!this.state.showHint ? "Click to show hint" : hint}</h3>
           </div>
-          <button style={scrollBtnRightStyle} onClick={this.changeCardRight}>{">"}</button>
+          <button
+            style={{ ...scrollBtnRightStyle, display: scrollDisplay }}
+            onClick={this.changeCardRight}>{">"}
+          </button>
         </div>
       </div >
     )
