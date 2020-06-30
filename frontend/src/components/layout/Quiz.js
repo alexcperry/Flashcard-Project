@@ -33,7 +33,7 @@ export class Quiz extends Component {
   changeCardLeft = () => {
     const num = this.state.numCards;
     this.setState({
-      currIndex: (this.state.currIndex + num + 1) % num,
+      currIndex: (this.state.currIndex + num - 1) % num,
       qside: true,
     })
   }
