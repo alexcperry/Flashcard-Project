@@ -6,6 +6,7 @@ export class Quiz extends Component {
     currIndex: null,
     cardSet: {},
     qaPairs: [],
+    qside: true,
   }
 
 
@@ -21,7 +22,7 @@ export class Quiz extends Component {
       qas.push({ question, answer });
     }
 
-    this.setState({ cardSet: set, qaPairs: qas, currIndex: 1 });
+    this.setState({ cardSet: set, qaPairs: qas, currIndex: 1, qside: true });
   }
 
 
@@ -38,8 +39,12 @@ export class Quiz extends Component {
 
     return (
       < div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
+        <h1 style={{ marginTop: '30px' }}>{this.state.cardSet.title}</h1>
         <div className="quiz-div" style={quizStyle}>
-          <h1>{question}</h1>
+          <h1 style={this.state.qside ? { textAlign: 'center' } :
+            { display: 'none', textAlign: 'center' }}>{question}</h1>
+          <h1 style={!this.state.qside ? { textAlign: 'center' } :
+            { display: 'none', textAlign: 'center' }}>{answer}</h1>
         </div>
       </div >
     )
@@ -47,9 +52,12 @@ export class Quiz extends Component {
 }
 
 const quizStyle = {
+  display: 'flex',
+  justifyContent: 'center',
+  alignItems: 'center',
   width: '600px',
   height: '400px',
-  marginTop: '50px',
+  marginTop: '30px',
   border: '2px solid black',
   borderRadius: '8px',
   padding: '10px 20px',
