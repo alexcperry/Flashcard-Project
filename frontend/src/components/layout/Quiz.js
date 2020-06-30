@@ -1,4 +1,5 @@
-import React, { Component } from 'react'
+import React, { Component } from 'react';
+import { Link } from 'react-router-dom';
 
 export class Quiz extends Component {
 
@@ -52,11 +53,12 @@ export class Quiz extends Component {
       question = qaPair.question;
       answer = qaPair.answer;
     }
-    console.log(question, answer);
 
     return (
       < div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
-        <h1 style={{ marginTop: '30px' }}>{this.state.cardSet.title}</h1>
+        <Link to={`/sets/${this.props.match.params.id}`}>
+          <h1 style={{ marginTop: '30px' }}>{this.state.cardSet.title}</h1>
+        </Link>
         <div className="quiz-div" style={quizStyle}>
           <button style={scrollBtnStyle} onClick={this.changeCardLeft}>{"<"}</button>
           <h1 style={this.state.qside ? { textAlign: 'center' } :
@@ -84,7 +86,11 @@ const quizStyle = {
 
 const scrollBtnStyle = {
   height: '30px',
-
+  width: '30px',
+  borderRadius: '50%',
+  border: '2px solid black',
+  alignSelf: 'flex-end',
+  marginBottom: '20px',
 }
 
 function shuffle(array) {

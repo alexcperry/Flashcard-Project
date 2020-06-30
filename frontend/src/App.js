@@ -51,19 +51,12 @@ class App extends React.Component {
 
     const newCard = { question, answer, hint }
 
-
-    console.log('Chicken pie');
-
     axios.post(`http://localhost:3000/sets/${setId}/add-flashcard`, newCard)
-      .then(cardset => {
+      .then(res => {
         console.log('help');
-        console.log('the current cardset', cardset);
+        console.log('the current cardset', res);
       })
       .catch(err => console.log(`Error ${err}`));
-
-    console.log('chicken pie is done');
-
-
   }
 
 

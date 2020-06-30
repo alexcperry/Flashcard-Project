@@ -14,10 +14,6 @@ export class Set extends Component {
 
 
   render() {
-
-
-    console.log('my set', this.state.set.title);
-
     return (
       <div className="set-page">
         <h1 style={{ textAlign: 'center', marginTop: '30px' }}>{this.state.set.title}</h1>

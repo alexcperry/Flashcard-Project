@@ -1,4 +1,5 @@
 import React, { Component, Fragment } from 'react';
+import { Link } from 'react-router-dom';
 import MenuOption from '../MenuOption';
 
 export class SetCards extends Component {
@@ -16,7 +17,9 @@ export class SetCards extends Component {
   render() {
     return (
       <Fragment>
-        <h1 style={{ textAlign: 'center', marginTop: '30px' }}>{this.state.cardSet.title}</h1>
+        <Link to={`/sets/${this.props.match.params.id}`}>
+          <h1 style={{ textAlign: 'center', marginTop: '30px' }}>{this.state.cardSet.title}</h1>
+        </Link>
         <div className="set-cards" style={cardCollectionStyle}>
           {(this.state.cardSet.cards) &&
             (this.state.cardSet.cards).slice(0).reverse().map(card => {

@@ -24,3 +24,7 @@ a {
 .menu-option {
   cursor: pointer;
 }
+
+.menu-option h1 {
+  padding: 15px;
+}
