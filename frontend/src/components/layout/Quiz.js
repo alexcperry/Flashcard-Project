@@ -3,6 +3,7 @@ import React, { Component } from 'react'
 export class Quiz extends Component {
 
   state = {
+    numCards: 0,
     currIndex: null,
     cardSet: {},
     qaPairs: [],
@@ -22,7 +23,15 @@ export class Quiz extends Component {
       qas.push({ question, answer });
     }
 
-    this.setState({ cardSet: set, qaPairs: qas, currIndex: 1, qside: true });
+    this.setState({ numCards, cardSet: set, qaPairs: qas, currIndex: 0, qside: true });
+  }
+
+  changeCardRight = () => {
+
+
+
+
+    this.setState({ currIndex: (this.state.currIndex + 1) % this.state.numCards });
   }
 
 
@@ -41,10 +50,12 @@ export class Quiz extends Component {
       < div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center' }}>
         <h1 style={{ marginTop: '30px' }}>{this.state.cardSet.title}</h1>
         <div className="quiz-div" style={quizStyle}>
+          <button style={scrollBtnStyle} >{"<"}</button>
           <h1 style={this.state.qside ? { textAlign: 'center' } :
             { display: 'none', textAlign: 'center' }}>{question}</h1>
           <h1 style={!this.state.qside ? { textAlign: 'center' } :
             { display: 'none', textAlign: 'center' }}>{answer}</h1>
+          <button style={scrollBtnStyle} onClick={this.changeCardRight}>{">"}</button>
         </div>
       </div >
     )
@@ -53,7 +64,7 @@ export class Quiz extends Component {
 
 const quizStyle = {
   display: 'flex',
-  justifyContent: 'center',
+  justifyContent: 'space-between',
   alignItems: 'center',
   width: '600px',
   height: '400px',
@@ -61,6 +72,11 @@ const quizStyle = {
   border: '2px solid black',
   borderRadius: '8px',
   padding: '10px 20px',
+}
+
+const scrollBtnStyle = {
+  height: '30px',
+
 }
 
 function shuffle(array) {
