@@ -1,6 +1,6 @@
 import React from 'react';
 import './App.css';
-import { BrowserRouter as Router, Switch, Route, useParams } from 'react-router-dom';
+import { BrowserRouter as Router, Switch, Route, } from 'react-router-dom';
 import axios from 'axios';
 
 import Header from './components/layout/Header';
@@ -8,8 +8,9 @@ import MainMenu from './components/layout/MainMenu';
 import NewSetForm from './components/layout/NewSetForm';
 import CardSetMenu from './components/layout/CardSetMenu';
 import Set from './components/layout/Set';
-import SetCollection from './components/layout/SetCollection';
+import SetCards from './components/layout/SetCards';
 import AddCardPage from './components/layout/AddCardPage';
+import Quiz from './components/layout/Quiz';
 
 class App extends React.Component {
 
@@ -70,7 +71,8 @@ class App extends React.Component {
             <Route path="/set-menu" exact component={() => <CardSetMenu setDict={this.state.setDict} />} />
             <Route path="/sets/:id" exact component={props => <Set {...props} setDict={this.state.setDict} />} />
             <Route path="/sets/:id/add-cards" component={props => <AddCardPage {...props} createCard={this.createCard} />} />
-            <Route path="/set-collection" component={SetCollection} />
+            <Route path="/sets/:id/all-cards" component={props => <SetCards {...props} setDict={this.state.setDict} />} />
+            <Route path="/sets/:id/quiz" component={props => <Quiz {...props} setDict={this.state.setDict} />} />
           </Switch>
         </div>
       </Router >
